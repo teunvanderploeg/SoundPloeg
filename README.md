@@ -44,6 +44,12 @@ setup. The app runtime location remains the standard Application Support path.
   --root "$HOME/Library/Application Support/SoundPloeg/models"
 ```
 
+After building an app bundle, check its icon declaration and metadata before installing:
+
+```bash
+./Scripts/verify_app_bundle.sh /path/to/SoundPloeg.app
+```
+
 The smoke check synthesizes every voice twice in one worker, checks the WAVs,
 and reports generation time versus audio duration. It does not use system voice
 fallback, so failures cannot be hidden by a macOS voice.
