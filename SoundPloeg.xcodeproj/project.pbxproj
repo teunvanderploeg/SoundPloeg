@@ -1,0 +1,975 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		00A7043D5F1685D61CD6B438 /* InMemoryDiagnosticsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F06A384C89B1DFDA25E4C57F /* InMemoryDiagnosticsService.swift */; };
+		032FD5B67516E328AEEDBE77 /* SoundPloegInfra.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DB7AD7C8B4A4A3A9081C3C3 /* SoundPloegInfra.framework */; };
+		0EAF057D834629457E11969F /* LocalTTSService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6FA487693B0FBD3B8B72C82 /* LocalTTSService.swift */; };
+		16360B03ED48081155494B9C /* Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F117FE2C2D086FC3F36D847 /* Errors.swift */; };
+		247B3C2E4C8BD96F098208FF /* TTSFallbackAndPipelineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B4BCE155F3128DCD6E9491D /* TTSFallbackAndPipelineTests.swift */; };
+		24FD7B3923FA871A33EA69B5 /* ModelLibraryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4477440F3DC92B78AFF3BFD6 /* ModelLibraryService.swift */; };
+		25285543EC6AF505D61DBB9A /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56069270A329CBD6B6E12168 /* AppState.swift */; };
+		2A7164C67CD7A24AD03F5504 /* HotkeyIngestionCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1956381A15FFF2118354EB4F /* HotkeyIngestionCoordinator.swift */; };
+		3067F456E0E34036FED9D691 /* CarbonHotkeyService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C825C1CFA8DD5F71E7FB458 /* CarbonHotkeyService.swift */; };
+		3539B54EC3D792DFE76761DA /* SoundPloegCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A2C670DD9FCB0F186619B43 /* SoundPloegCore.framework */; };
+		3CF6FB930EF8BC162B12F06A /* SystemTTSService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E36552E317FBDE52CAD049D8 /* SystemTTSService.swift */; };
+		5147155780CBD6798E4B23CF /* SoundPloegCore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3A2C670DD9FCB0F186619B43 /* SoundPloegCore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		52949DE73A42C2FB99CD8D32 /* SettingsWindowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB182EEF6BC714C8650BF140 /* SettingsWindowView.swift */; };
+		5B12372239FE6A0C3F751405 /* NSPasteboardClipboardService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 596448A200DABC9393AEE628 /* NSPasteboardClipboardService.swift */; };
+		837867701340D4DCF3FE449A /* SoundPloegCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A2C670DD9FCB0F186619B43 /* SoundPloegCore.framework */; };
+		86DD109B2C8287F024F00A06 /* UserDefaultsSettingsStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307F8CC92D71BB350CDB6085 /* UserDefaultsSettingsStore.swift */; };
+		883AC9B928FCCAC4BB9D8BB6 /* CompositeTTSService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48CBEA7BE81A62074C37E815 /* CompositeTTSService.swift */; };
+		96176288064870E6623FF90F /* SoundPloegInfra.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DB7AD7C8B4A4A3A9081C3C3 /* SoundPloegInfra.framework */; };
+		9F2ED5148CAD00B253E85626 /* ErrorMapperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32155D6261B38AB405BAFC50 /* ErrorMapperTests.swift */; };
+		9F57784298D521DA20E9A4ED /* Runtime in Resources */ = {isa = PBXBuildFile; fileRef = B806455E76513B830019BDD7 /* Runtime */; };
+		9FE7B8A04E88F7FE077DB756 /* HotkeyIngestionCoordinatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6168C499C3B587B50B728B /* HotkeyIngestionCoordinatorTests.swift */; };
+		AF3D54C5AC119D30D4722C7D /* MenuBarContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DD371BB448F32198739AABF /* MenuBarContentView.swift */; };
+		B36F374F3DBB14707688562D /* ClipboardTextProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BDBC804D8ED657D40F3629B /* ClipboardTextProcessor.swift */; };
+		BC7B15400CDC2E0C05D156ED /* SoundPloegCore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3A2C670DD9FCB0F186619B43 /* SoundPloegCore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		BF407557B83D3C7C18F62870 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F84B294A6D7478DF4C70E61 /* Models.swift */; };
+		C25832A06AFAD36D4379E3CA /* SpeechQueueCoordinatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC172DB15EBD790EC15B70BD /* SpeechQueueCoordinatorTests.swift */; };
+		C8EA6B8220CBFB513468AE39 /* HotkeyRecorderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C257FF2DF27C7187A7CDCD7 /* HotkeyRecorderView.swift */; };
+		CCD5E48DEB9C3A1B713B53AF /* SoundPloegCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A2C670DD9FCB0F186619B43 /* SoundPloegCore.framework */; };
+		D27FA286C860BFBAB1E6AE80 /* SpeechWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA07EB58404BDB761CF7C345 /* SpeechWorker.swift */; };
+		D2B2D652ADA46D62899106E7 /* model_catalog.json in Resources */ = {isa = PBXBuildFile; fileRef = 996C2A981FCDC4D778ADA532 /* model_catalog.json */; };
+		DCBF4651743FD724AA1C621E /* SoundPloegCore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3A2C670DD9FCB0F186619B43 /* SoundPloegCore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		E3DCD2F7FEC041917BB6697D /* AVAudioPlaybackEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837D61FAF8E7869BE38A3A60 /* AVAudioPlaybackEngine.swift */; };
+		E42EB311C186D6997D2A3EB1 /* SpeechQueueCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E14DE247259F261BD86346F /* SpeechQueueCoordinator.swift */; };
+		E49022BEF2D42110B49DBEAC /* SoundPloegMenuBarApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46894D197F32CB8D621C65F2 /* SoundPloegMenuBarApp.swift */; };
+		E7C4B5C439E1680551196973 /* SpeechBackendTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F192E59B127105DEC649973 /* SpeechBackendTests.swift */; };
+		E81D6C904A7090C2323D57CA /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D7DF155D7DE9A33842E3110 /* Protocols.swift */; };
+		E9E3C291887F2205DB446045 /* SoundPloegInfra.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1DB7AD7C8B4A4A3A9081C3C3 /* SoundPloegInfra.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		EB36A07A32F8075ABBE5CB2C /* VoiceCatalog.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB025350CD2D5949199A0C5 /* VoiceCatalog.swift */; };
+		EBF78524283054E69EEFD295 /* AppIcon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 5280EF41F2FE260D4AC225BA /* AppIcon.icns */; };
+		ECE950B518A4A4C7A82023A9 /* SoundPloegInfra.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1DB7AD7C8B4A4A3A9081C3C3 /* SoundPloegInfra.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		F3965B6C38232F20D613DA2A /* SpeechCommands.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1FA74A7AB701B18E463B997 /* SpeechCommands.swift */; };
+		F3C2B1F4AEF02198EEFF6206 /* ClipboardTextProcessorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28583DD37DD610D696437625 /* ClipboardTextProcessorTests.swift */; };
+		FCBB4026929E19F6F20554F7 /* SoundPloegCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A2C670DD9FCB0F186619B43 /* SoundPloegCore.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		1C691C70AC9EF97BF202F227 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 58BE6F4A0265E608B8A6E265 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D72FC3BAFB5AEFB1276C7E76;
+			remoteInfo = SoundPloegInfra;
+		};
+		315382A7C1E72D4002607026 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 58BE6F4A0265E608B8A6E265 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DAE96A9561D5881877E71F8E;
+			remoteInfo = SoundPloegCore;
+		};
+		526310F93F8C83902783EC45 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 58BE6F4A0265E608B8A6E265 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DAE96A9561D5881877E71F8E;
+			remoteInfo = SoundPloegCore;
+		};
+		612749DA24E749597A524A9A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 58BE6F4A0265E608B8A6E265 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DAE96A9561D5881877E71F8E;
+			remoteInfo = SoundPloegCore;
+		};
+		BA0D363EFA174FA7CB2802CF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 58BE6F4A0265E608B8A6E265 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D72FC3BAFB5AEFB1276C7E76;
+			remoteInfo = SoundPloegInfra;
+		};
+		CBA500984C5D0410417267C1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 58BE6F4A0265E608B8A6E265 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DAE96A9561D5881877E71F8E;
+			remoteInfo = SoundPloegCore;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		36D69FB59C43F07C96C060B6 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				BC7B15400CDC2E0C05D156ED /* SoundPloegCore.framework in Embed Frameworks */,
+				E9E3C291887F2205DB446045 /* SoundPloegInfra.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		517E038D8A67FED0CD1E5030 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				DCBF4651743FD724AA1C621E /* SoundPloegCore.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C07945565E07F81A5CAAC7C4 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				5147155780CBD6798E4B23CF /* SoundPloegCore.framework in Embed Frameworks */,
+				ECE950B518A4A4C7A82023A9 /* SoundPloegInfra.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		0F192E59B127105DEC649973 /* SpeechBackendTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechBackendTests.swift; sourceTree = "<group>"; };
+		1956381A15FFF2118354EB4F /* HotkeyIngestionCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotkeyIngestionCoordinator.swift; sourceTree = "<group>"; };
+		1B4BCE155F3128DCD6E9491D /* TTSFallbackAndPipelineTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTSFallbackAndPipelineTests.swift; sourceTree = "<group>"; };
+		1DB7AD7C8B4A4A3A9081C3C3 /* SoundPloegInfra.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SoundPloegInfra.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		28583DD37DD610D696437625 /* ClipboardTextProcessorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClipboardTextProcessorTests.swift; sourceTree = "<group>"; };
+		2F84B294A6D7478DF4C70E61 /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
+		307F8CC92D71BB350CDB6085 /* UserDefaultsSettingsStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsSettingsStore.swift; sourceTree = "<group>"; };
+		32155D6261B38AB405BAFC50 /* ErrorMapperTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorMapperTests.swift; sourceTree = "<group>"; };
+		3A2C670DD9FCB0F186619B43 /* SoundPloegCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SoundPloegCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		3C825C1CFA8DD5F71E7FB458 /* CarbonHotkeyService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarbonHotkeyService.swift; sourceTree = "<group>"; };
+		4477440F3DC92B78AFF3BFD6 /* ModelLibraryService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelLibraryService.swift; sourceTree = "<group>"; };
+		46894D197F32CB8D621C65F2 /* SoundPloegMenuBarApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundPloegMenuBarApp.swift; sourceTree = "<group>"; };
+		48CBEA7BE81A62074C37E815 /* CompositeTTSService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompositeTTSService.swift; sourceTree = "<group>"; };
+		4C257FF2DF27C7187A7CDCD7 /* HotkeyRecorderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotkeyRecorderView.swift; sourceTree = "<group>"; };
+		4D7DF155D7DE9A33842E3110 /* Protocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocols.swift; sourceTree = "<group>"; };
+		4DD371BB448F32198739AABF /* MenuBarContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarContentView.swift; sourceTree = "<group>"; };
+		4DD4A968B0BE2B2BD605B9EA /* SoundPloegApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SoundPloegApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		5280EF41F2FE260D4AC225BA /* AppIcon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = AppIcon.icns; sourceTree = "<group>"; };
+		56069270A329CBD6B6E12168 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
+		596448A200DABC9393AEE628 /* NSPasteboardClipboardService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSPasteboardClipboardService.swift; sourceTree = "<group>"; };
+		5E14DE247259F261BD86346F /* SpeechQueueCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechQueueCoordinator.swift; sourceTree = "<group>"; };
+		6F117FE2C2D086FC3F36D847 /* Errors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Errors.swift; sourceTree = "<group>"; };
+		7BDBC804D8ED657D40F3629B /* ClipboardTextProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClipboardTextProcessor.swift; sourceTree = "<group>"; };
+		837D61FAF8E7869BE38A3A60 /* AVAudioPlaybackEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVAudioPlaybackEngine.swift; sourceTree = "<group>"; };
+		996C2A981FCDC4D778ADA532 /* model_catalog.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = model_catalog.json; sourceTree = "<group>"; };
+		9EC59CB2F6CB8ECA241BF700 /* SoundPloegCoreTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SoundPloegCoreTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		B806455E76513B830019BDD7 /* Runtime */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Runtime; path = Sources/SoundPloegInfra/Resources/Runtime; sourceTree = SOURCE_ROOT; };
+		BA07EB58404BDB761CF7C345 /* SpeechWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechWorker.swift; sourceTree = "<group>"; };
+		BA6168C499C3B587B50B728B /* HotkeyIngestionCoordinatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotkeyIngestionCoordinatorTests.swift; sourceTree = "<group>"; };
+		BB182EEF6BC714C8650BF140 /* SettingsWindowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsWindowView.swift; sourceTree = "<group>"; };
+		BC172DB15EBD790EC15B70BD /* SpeechQueueCoordinatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechQueueCoordinatorTests.swift; sourceTree = "<group>"; };
+		D6FA487693B0FBD3B8B72C82 /* LocalTTSService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalTTSService.swift; sourceTree = "<group>"; };
+		E1FA74A7AB701B18E463B997 /* SpeechCommands.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechCommands.swift; sourceTree = "<group>"; };
+		E36552E317FBDE52CAD049D8 /* SystemTTSService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemTTSService.swift; sourceTree = "<group>"; };
+		F06A384C89B1DFDA25E4C57F /* InMemoryDiagnosticsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InMemoryDiagnosticsService.swift; sourceTree = "<group>"; };
+		F466E4500632C72746E6EFE0 /* SoundPloegIntegrationTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SoundPloegIntegrationTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		FAB025350CD2D5949199A0C5 /* VoiceCatalog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceCatalog.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		0ACEF3849FD237DC09ED6D57 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FCBB4026929E19F6F20554F7 /* SoundPloegCore.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		21D11046A17BEDBD624C4B19 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3539B54EC3D792DFE76761DA /* SoundPloegCore.framework in Frameworks */,
+				032FD5B67516E328AEEDBE77 /* SoundPloegInfra.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		26E68718A8F28D93D3F44933 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CCD5E48DEB9C3A1B713B53AF /* SoundPloegCore.framework in Frameworks */,
+				96176288064870E6623FF90F /* SoundPloegInfra.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BE6A054F32FE2E9BA508A27D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				837867701340D4DCF3FE449A /* SoundPloegCore.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		0C56FA32B98730E75B2E372C /* SoundPloegCoreTests */ = {
+			isa = PBXGroup;
+			children = (
+				28583DD37DD610D696437625 /* ClipboardTextProcessorTests.swift */,
+				32155D6261B38AB405BAFC50 /* ErrorMapperTests.swift */,
+				BA6168C499C3B587B50B728B /* HotkeyIngestionCoordinatorTests.swift */,
+				BC172DB15EBD790EC15B70BD /* SpeechQueueCoordinatorTests.swift */,
+			);
+			name = SoundPloegCoreTests;
+			path = Tests/SoundPloegCoreTests;
+			sourceTree = "<group>";
+		};
+		134FD79B97F8CD79A353597B /* SoundPloegApp */ = {
+			isa = PBXGroup;
+			children = (
+				56069270A329CBD6B6E12168 /* AppState.swift */,
+				4C257FF2DF27C7187A7CDCD7 /* HotkeyRecorderView.swift */,
+				4DD371BB448F32198739AABF /* MenuBarContentView.swift */,
+				BB182EEF6BC714C8650BF140 /* SettingsWindowView.swift */,
+				46894D197F32CB8D621C65F2 /* SoundPloegMenuBarApp.swift */,
+				E1FA74A7AB701B18E463B997 /* SpeechCommands.swift */,
+				D23795AEBA9AD60CC4131B6F /* Resources */,
+			);
+			name = SoundPloegApp;
+			path = Sources/SoundPloegApp;
+			sourceTree = "<group>";
+		};
+		343FBF48B2470E7AB638FF3C /* SoundPloegIntegrationTests */ = {
+			isa = PBXGroup;
+			children = (
+				0F192E59B127105DEC649973 /* SpeechBackendTests.swift */,
+				1B4BCE155F3128DCD6E9491D /* TTSFallbackAndPipelineTests.swift */,
+			);
+			name = SoundPloegIntegrationTests;
+			path = Tests/SoundPloegIntegrationTests;
+			sourceTree = "<group>";
+		};
+		4E7AE0BE43E0EDA2866158BC /* SoundPloegInfra */ = {
+			isa = PBXGroup;
+			children = (
+				837D61FAF8E7869BE38A3A60 /* AVAudioPlaybackEngine.swift */,
+				3C825C1CFA8DD5F71E7FB458 /* CarbonHotkeyService.swift */,
+				48CBEA7BE81A62074C37E815 /* CompositeTTSService.swift */,
+				F06A384C89B1DFDA25E4C57F /* InMemoryDiagnosticsService.swift */,
+				D6FA487693B0FBD3B8B72C82 /* LocalTTSService.swift */,
+				4477440F3DC92B78AFF3BFD6 /* ModelLibraryService.swift */,
+				596448A200DABC9393AEE628 /* NSPasteboardClipboardService.swift */,
+				BA07EB58404BDB761CF7C345 /* SpeechWorker.swift */,
+				E36552E317FBDE52CAD049D8 /* SystemTTSService.swift */,
+				307F8CC92D71BB350CDB6085 /* UserDefaultsSettingsStore.swift */,
+				FAB025350CD2D5949199A0C5 /* VoiceCatalog.swift */,
+			);
+			name = SoundPloegInfra;
+			path = Sources/SoundPloegInfra;
+			sourceTree = "<group>";
+		};
+		892B6CCEB22DFE564304437A = {
+			isa = PBXGroup;
+			children = (
+				B806455E76513B830019BDD7 /* Runtime */,
+				9C5FCAAB1EDC1D2A5549D4FA /* Resources */,
+				134FD79B97F8CD79A353597B /* SoundPloegApp */,
+				9C8A3DADC047E73B9964F15C /* SoundPloegCore */,
+				0C56FA32B98730E75B2E372C /* SoundPloegCoreTests */,
+				4E7AE0BE43E0EDA2866158BC /* SoundPloegInfra */,
+				343FBF48B2470E7AB638FF3C /* SoundPloegIntegrationTests */,
+				A1CAD4F626AB052943739941 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		9C5FCAAB1EDC1D2A5549D4FA /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				996C2A981FCDC4D778ADA532 /* model_catalog.json */,
+			);
+			name = Resources;
+			path = Sources/SoundPloegInfra/Resources;
+			sourceTree = "<group>";
+		};
+		9C8A3DADC047E73B9964F15C /* SoundPloegCore */ = {
+			isa = PBXGroup;
+			children = (
+				7BDBC804D8ED657D40F3629B /* ClipboardTextProcessor.swift */,
+				6F117FE2C2D086FC3F36D847 /* Errors.swift */,
+				1956381A15FFF2118354EB4F /* HotkeyIngestionCoordinator.swift */,
+				2F84B294A6D7478DF4C70E61 /* Models.swift */,
+				4D7DF155D7DE9A33842E3110 /* Protocols.swift */,
+				5E14DE247259F261BD86346F /* SpeechQueueCoordinator.swift */,
+			);
+			name = SoundPloegCore;
+			path = Sources/SoundPloegCore;
+			sourceTree = "<group>";
+		};
+		A1CAD4F626AB052943739941 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				4DD4A968B0BE2B2BD605B9EA /* SoundPloegApp.app */,
+				3A2C670DD9FCB0F186619B43 /* SoundPloegCore.framework */,
+				9EC59CB2F6CB8ECA241BF700 /* SoundPloegCoreTests.xctest */,
+				1DB7AD7C8B4A4A3A9081C3C3 /* SoundPloegInfra.framework */,
+				F466E4500632C72746E6EFE0 /* SoundPloegIntegrationTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		D23795AEBA9AD60CC4131B6F /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				5280EF41F2FE260D4AC225BA /* AppIcon.icns */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		473B81B2F2960EDFFFEDF85E /* SoundPloegIntegrationTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3BC4EC6A550A0EDE184E09E8 /* Build configuration list for PBXNativeTarget "SoundPloegIntegrationTests" */;
+			buildPhases = (
+				645759E68699E5BDC6FE7FE9 /* Sources */,
+				26E68718A8F28D93D3F44933 /* Frameworks */,
+				36D69FB59C43F07C96C060B6 /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				C42A6D96160A8B8629BE4B6B /* PBXTargetDependency */,
+				A4A5819C9C3362B724B02F3C /* PBXTargetDependency */,
+			);
+			name = SoundPloegIntegrationTests;
+			packageProductDependencies = (
+			);
+			productName = SoundPloegIntegrationTests;
+			productReference = F466E4500632C72746E6EFE0 /* SoundPloegIntegrationTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		56179E149D5345741D7B10DA /* SoundPloegApp */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 57B378865A0313932A90CDEC /* Build configuration list for PBXNativeTarget "SoundPloegApp" */;
+			buildPhases = (
+				D712E1E85CF6F7FDE36E1FD5 /* Sources */,
+				056092DE0FA25651EE2CA811 /* Resources */,
+				21D11046A17BEDBD624C4B19 /* Frameworks */,
+				C07945565E07F81A5CAAC7C4 /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				F1F326BAE65DDE01F7FF1EA3 /* PBXTargetDependency */,
+				0308B7D72553DCAF6538472A /* PBXTargetDependency */,
+			);
+			name = SoundPloegApp;
+			packageProductDependencies = (
+			);
+			productName = SoundPloegApp;
+			productReference = 4DD4A968B0BE2B2BD605B9EA /* SoundPloegApp.app */;
+			productType = "com.apple.product-type.application";
+		};
+		D2F4D2283BC27A613623FBA8 /* SoundPloegCoreTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2BF224CB062D2C6EDD79FF69 /* Build configuration list for PBXNativeTarget "SoundPloegCoreTests" */;
+			buildPhases = (
+				9830CC695A99C407F6C2AFA9 /* Sources */,
+				BE6A054F32FE2E9BA508A27D /* Frameworks */,
+				517E038D8A67FED0CD1E5030 /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				F1FBDA19C32DA2B6B2FF3102 /* PBXTargetDependency */,
+			);
+			name = SoundPloegCoreTests;
+			packageProductDependencies = (
+			);
+			productName = SoundPloegCoreTests;
+			productReference = 9EC59CB2F6CB8ECA241BF700 /* SoundPloegCoreTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		D72FC3BAFB5AEFB1276C7E76 /* SoundPloegInfra */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AB844CB80F587FFA849D76C3 /* Build configuration list for PBXNativeTarget "SoundPloegInfra" */;
+			buildPhases = (
+				8D3D3FC3521CA6369E8B1875 /* Sources */,
+				14648887B3CD70CB4C7E08E5 /* Resources */,
+				0ACEF3849FD237DC09ED6D57 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				1859B0266ADC9D044E1CC6E6 /* PBXTargetDependency */,
+			);
+			name = SoundPloegInfra;
+			packageProductDependencies = (
+			);
+			productName = SoundPloegInfra;
+			productReference = 1DB7AD7C8B4A4A3A9081C3C3 /* SoundPloegInfra.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		DAE96A9561D5881877E71F8E /* SoundPloegCore */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9C7B1759164BC1C88AD19BC1 /* Build configuration list for PBXNativeTarget "SoundPloegCore" */;
+			buildPhases = (
+				139F6FEB8387CA502F155464 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SoundPloegCore;
+			packageProductDependencies = (
+			);
+			productName = SoundPloegCore;
+			productReference = 3A2C670DD9FCB0F186619B43 /* SoundPloegCore.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		58BE6F4A0265E608B8A6E265 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1430;
+				TargetAttributes = {
+					56179E149D5345741D7B10DA = {
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = BE3F96425097C14E5DEF0BD9 /* Build configuration list for PBXProject "SoundPloeg" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = 892B6CCEB22DFE564304437A;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = A1CAD4F626AB052943739941 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				56179E149D5345741D7B10DA /* SoundPloegApp */,
+				DAE96A9561D5881877E71F8E /* SoundPloegCore */,
+				D2F4D2283BC27A613623FBA8 /* SoundPloegCoreTests */,
+				D72FC3BAFB5AEFB1276C7E76 /* SoundPloegInfra */,
+				473B81B2F2960EDFFFEDF85E /* SoundPloegIntegrationTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		056092DE0FA25651EE2CA811 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EBF78524283054E69EEFD295 /* AppIcon.icns in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		14648887B3CD70CB4C7E08E5 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9F57784298D521DA20E9A4ED /* Runtime in Resources */,
+				D2B2D652ADA46D62899106E7 /* model_catalog.json in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		139F6FEB8387CA502F155464 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B36F374F3DBB14707688562D /* ClipboardTextProcessor.swift in Sources */,
+				16360B03ED48081155494B9C /* Errors.swift in Sources */,
+				2A7164C67CD7A24AD03F5504 /* HotkeyIngestionCoordinator.swift in Sources */,
+				BF407557B83D3C7C18F62870 /* Models.swift in Sources */,
+				E81D6C904A7090C2323D57CA /* Protocols.swift in Sources */,
+				E42EB311C186D6997D2A3EB1 /* SpeechQueueCoordinator.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		645759E68699E5BDC6FE7FE9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E7C4B5C439E1680551196973 /* SpeechBackendTests.swift in Sources */,
+				247B3C2E4C8BD96F098208FF /* TTSFallbackAndPipelineTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8D3D3FC3521CA6369E8B1875 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E3DCD2F7FEC041917BB6697D /* AVAudioPlaybackEngine.swift in Sources */,
+				3067F456E0E34036FED9D691 /* CarbonHotkeyService.swift in Sources */,
+				883AC9B928FCCAC4BB9D8BB6 /* CompositeTTSService.swift in Sources */,
+				00A7043D5F1685D61CD6B438 /* InMemoryDiagnosticsService.swift in Sources */,
+				0EAF057D834629457E11969F /* LocalTTSService.swift in Sources */,
+				24FD7B3923FA871A33EA69B5 /* ModelLibraryService.swift in Sources */,
+				5B12372239FE6A0C3F751405 /* NSPasteboardClipboardService.swift in Sources */,
+				D27FA286C860BFBAB1E6AE80 /* SpeechWorker.swift in Sources */,
+				3CF6FB930EF8BC162B12F06A /* SystemTTSService.swift in Sources */,
+				86DD109B2C8287F024F00A06 /* UserDefaultsSettingsStore.swift in Sources */,
+				EB36A07A32F8075ABBE5CB2C /* VoiceCatalog.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9830CC695A99C407F6C2AFA9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F3C2B1F4AEF02198EEFF6206 /* ClipboardTextProcessorTests.swift in Sources */,
+				9F2ED5148CAD00B253E85626 /* ErrorMapperTests.swift in Sources */,
+				9FE7B8A04E88F7FE077DB756 /* HotkeyIngestionCoordinatorTests.swift in Sources */,
+				C25832A06AFAD36D4379E3CA /* SpeechQueueCoordinatorTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D712E1E85CF6F7FDE36E1FD5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				25285543EC6AF505D61DBB9A /* AppState.swift in Sources */,
+				C8EA6B8220CBFB513468AE39 /* HotkeyRecorderView.swift in Sources */,
+				AF3D54C5AC119D30D4722C7D /* MenuBarContentView.swift in Sources */,
+				52949DE73A42C2FB99CD8D32 /* SettingsWindowView.swift in Sources */,
+				E49022BEF2D42110B49DBEAC /* SoundPloegMenuBarApp.swift in Sources */,
+				F3965B6C38232F20D613DA2A /* SpeechCommands.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		0308B7D72553DCAF6538472A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D72FC3BAFB5AEFB1276C7E76 /* SoundPloegInfra */;
+			targetProxy = BA0D363EFA174FA7CB2802CF /* PBXContainerItemProxy */;
+		};
+		1859B0266ADC9D044E1CC6E6 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DAE96A9561D5881877E71F8E /* SoundPloegCore */;
+			targetProxy = 612749DA24E749597A524A9A /* PBXContainerItemProxy */;
+		};
+		A4A5819C9C3362B724B02F3C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D72FC3BAFB5AEFB1276C7E76 /* SoundPloegInfra */;
+			targetProxy = 1C691C70AC9EF97BF202F227 /* PBXContainerItemProxy */;
+		};
+		C42A6D96160A8B8629BE4B6B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DAE96A9561D5881877E71F8E /* SoundPloegCore */;
+			targetProxy = CBA500984C5D0410417267C1 /* PBXContainerItemProxy */;
+		};
+		F1F326BAE65DDE01F7FF1EA3 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DAE96A9561D5881877E71F8E /* SoundPloegCore */;
+			targetProxy = 315382A7C1E72D4002607026 /* PBXContainerItemProxy */;
+		};
+		F1FBDA19C32DA2B6B2FF3102 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DAE96A9561D5881877E71F8E /* SoundPloegCore */;
+			targetProxy = 526310F93F8C83902783EC45 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		2365A12888887D66DB11DFF8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GENERATE_INFOPLIST_FILE = YES;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				PRODUCT_MODULE_NAME = SoundPloegInfra;
+				PRODUCT_NAME = SoundPloegInfra;
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+			};
+			name = Release;
+		};
+		26E7DAB1FF4E49E80B389550 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		2C5415AE5B1C988178756C1F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		2C817ECFB5185755F8459320 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = "";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = SoundPloeg;
+				INFOPLIST_KEY_CFBundleIconFile = AppIcon;
+				INFOPLIST_KEY_CFBundleName = SoundPloeg;
+				INFOPLIST_KEY_LSUIElement = YES;
+				INFOPLIST_KEY_NSAppleEventsUsageDescription = "SoundPloeg may control speech playback behavior.";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.soundploeg.app;
+				PRODUCT_NAME = SoundPloeg;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		481B075F8116AE9417E6F78D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GENERATE_INFOPLIST_FILE = YES;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				PRODUCT_MODULE_NAME = SoundPloegCore;
+				PRODUCT_NAME = SoundPloegCore;
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+			};
+			name = Release;
+		};
+		4DAEC09C32740C696D81ADDF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = "";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = SoundPloeg;
+				INFOPLIST_KEY_CFBundleIconFile = AppIcon;
+				INFOPLIST_KEY_CFBundleName = SoundPloeg;
+				INFOPLIST_KEY_LSUIElement = YES;
+				INFOPLIST_KEY_NSAppleEventsUsageDescription = "SoundPloeg may control speech playback behavior.";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.soundploeg.app;
+				PRODUCT_NAME = SoundPloeg;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		8365F77C51A0E66DA16C505C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = SoundPloeg;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.9;
+			};
+			name = Debug;
+		};
+		8B8D91B593002A7125646318 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = SoundPloeg;
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.9;
+			};
+			name = Release;
+		};
+		A329CDD1142D0AB4764498BA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GENERATE_INFOPLIST_FILE = YES;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				PRODUCT_MODULE_NAME = SoundPloegInfra;
+				PRODUCT_NAME = SoundPloegInfra;
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+			};
+			name = Debug;
+		};
+		BC944864B96E7A5F5D0CE65C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GENERATE_INFOPLIST_FILE = YES;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				PRODUCT_MODULE_NAME = SoundPloegCore;
+				PRODUCT_NAME = SoundPloegCore;
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+			};
+			name = Debug;
+		};
+		FC92414898E464010ECCAB9F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		FE231518CD7A26E5E62966A0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		2BF224CB062D2C6EDD79FF69 /* Build configuration list for PBXNativeTarget "SoundPloegCoreTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				26E7DAB1FF4E49E80B389550 /* Debug */,
+				FE231518CD7A26E5E62966A0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		3BC4EC6A550A0EDE184E09E8 /* Build configuration list for PBXNativeTarget "SoundPloegIntegrationTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2C5415AE5B1C988178756C1F /* Debug */,
+				FC92414898E464010ECCAB9F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		57B378865A0313932A90CDEC /* Build configuration list for PBXNativeTarget "SoundPloegApp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2C817ECFB5185755F8459320 /* Debug */,
+				4DAEC09C32740C696D81ADDF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		9C7B1759164BC1C88AD19BC1 /* Build configuration list for PBXNativeTarget "SoundPloegCore" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BC944864B96E7A5F5D0CE65C /* Debug */,
+				481B075F8116AE9417E6F78D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		AB844CB80F587FFA849D76C3 /* Build configuration list for PBXNativeTarget "SoundPloegInfra" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A329CDD1142D0AB4764498BA /* Debug */,
+				2365A12888887D66DB11DFF8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		BE3F96425097C14E5DEF0BD9 /* Build configuration list for PBXProject "SoundPloeg" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8365F77C51A0E66DA16C505C /* Debug */,
+				8B8D91B593002A7125646318 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 58BE6F4A0265E608B8A6E265 /* Project object */;
+}

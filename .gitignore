@@ -1,0 +1,31 @@
+# macOS
+.DS_Store
+
+# Swift Package Manager
+.build/
+.swiftpm/
+Packages/
+
+# Xcode build products and user data
+DerivedData/
+*.xcworkspace/xcuserdata/
+*.xcodeproj/project.xcworkspace/xcuserdata/
+*.xcodeproj/xcuserdata/
+*.xcuserdatad/
+*.xcuserstate
+
+# Swift playgrounds
+timeline.xctimeline
+playground.xcworkspace
+
+# Local runtime and speech verification artifacts
+.codex-tmp/
+__pycache__/
+*.pyc
+
+# Generated app bundles, archives, and exported releases
+build/
+*.app/
+*.xcarchive/
+*.dSYM/
+VoicePloeg 2026-03-02 12-21-17/
