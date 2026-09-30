@@ -25,9 +25,13 @@ struct SoundPloegMenuBarApp: App {
     }
 
     var body: some Scene {
-        MenuBarExtra("SoundPloeg", systemImage: "waveform") {
+        MenuBarExtra(
+            isPreparingSpeech ? "SoundPloeg: Preparing speech" : "SoundPloeg",
+            systemImage: isPreparingSpeech ? "hourglass" : "waveform"
+        ) {
             MenuBarContentView(appState: appState)
         }
+        .menuBarExtraStyle(.window)
 
         Window("Settings", id: "settings") {
             SettingsWindowView(appState: appState)
@@ -35,5 +39,9 @@ struct SoundPloegMenuBarApp: App {
         }
         .windowResizability(.contentSize)
         .commands { SpeechCommands(appState: appState) }
+    }
+
+    private var isPreparingSpeech: Bool {
+        appState.status == .speaking && appState.currentSpeech?.phase == .preparing
     }
 }

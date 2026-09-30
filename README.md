@@ -8,6 +8,18 @@ A local macOS menu bar app that reads clipboard text aloud in English and Dutch.
 - Offline speech after installation. No account, API key, or cloud synthesis.
 - macOS voice fallback, queue controls, global hotkey, and recent speech history.
 
+The menu bar panel shows the current reading, voice, completed parts, and waiting
+items. Errors and confirmations appear in the panel and Settings and can be
+dismissed. Clipboard readings retain the full text, including readings longer
+than 4,000 characters. History supports search, full-text viewing, copying,
+individual deletion, and replay with the original voice/rate or current settings.
+
+## Use from Codex or Terminal
+
+Generate local narration and podcasts with `soundploeg speak` and `soundploeg podcast`.
+A personal Codex skill and optional local MCP server let you ask, "Use SoundPloeg
+to turn this summary into a podcast." See [agent and CLI setup](Docs/AgentSpeech.md).
+
 ## Setup
 
 Requires macOS 13+, Xcode, Python 3.10–3.13, and XcodeGen for the app bundle.
@@ -88,6 +100,7 @@ for the three most recent history entries.
 The configured global shortcut, initially **⌘⇧S**, reads clipboard text from
 any app. With Auto-speak turned off, it queues the text instead. Change it in
 Settings → Playback. Press Escape to cancel recording a new shortcut.
+Use **Play Queue** to start waiting readings without reading the clipboard again.
 
 These shortcuts work when SoundPloeg is active and are shown in its menus and
 in Settings → Overview and Playback:
@@ -95,6 +108,7 @@ in Settings → Overview and Playback:
 | Action | Shortcut |
 |---|---|
 | Speak clipboard | ⌘↩ |
+| Play waiting queue | ⌥⌘↩ |
 | Pause / resume | ⌥⌘P |
 | Stop | ⌘. |
 | Skip current item | ⌥⌘→ |

@@ -72,6 +72,26 @@ public struct SpeechJob: Identifiable, Equatable, Sendable {
     }
 }
 
+public enum SpeechPhase: Equatable, Sendable {
+    case preparing
+    case playing
+}
+
+public struct CurrentSpeech: Equatable, Sendable {
+    public let job: SpeechJob
+    public let voiceName: String
+    public var phase: SpeechPhase
+    public var chunkIndex: Int
+    public let totalChunks: Int
+    public var completedChunks: Int
+}
+
+public struct SpeechQueueSnapshot: Equatable, Sendable {
+    public let status: AppStatus
+    public let queueDepth: Int
+    public let currentSpeech: CurrentSpeech?
+}
+
 public struct SystemSpeechRequest: Equatable, Sendable {
     public let text: String
     public let voiceIdentifier: String?

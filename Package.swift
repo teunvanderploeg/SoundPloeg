@@ -39,6 +39,10 @@ let package = Package(
         .testTarget(
             name: "SoundPloegIntegrationTests",
             dependencies: ["SoundPloegCore", "SoundPloegInfra"]
+        ),
+        .testTarget(
+            name: "SoundPloegAppTests",
+            dependencies: ["SoundPloeg", "SoundPloegCore", "SoundPloegInfra"]
         )
     ]
 )

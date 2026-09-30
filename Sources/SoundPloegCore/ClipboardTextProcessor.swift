@@ -1,7 +1,7 @@
 import Foundation
 
 public enum ClipboardTextProcessor {
-    public static let maxLength = 4_000
+    public static let longReadingThreshold = 4_000
     public static let previewLength = 120
 
     public static func normalize(_ input: String) -> String {
@@ -15,16 +15,10 @@ public enum ClipboardTextProcessor {
             throw SoundPloegError.clipboardEmpty
         }
 
-        if normalized.count > maxLength {
-            let truncated = String(normalized.prefix(maxLength))
-            return ClipboardPayload(
-                normalizedText: truncated,
-                preview: preview(for: truncated),
-                warning: ErrorMapper.map(SoundPloegError.clipboardTooLong(max: maxLength, actual: normalized.count))
-            )
-        }
-
-        return ClipboardPayload(normalizedText: normalized, preview: preview(for: normalized), warning: nil)
+        let notice: UserMessage? = normalized.count > longReadingThreshold
+            ? UserMessage(title: "Long Reading", detail: "All \(normalized.count.formatted()) characters were queued. You can pause, skip, or stop at any time.", severity: .info)
+            : nil
+        return ClipboardPayload(normalizedText: normalized, preview: preview(for: normalized), warning: notice)
     }
 
     public static func preview(for text: String) -> String {

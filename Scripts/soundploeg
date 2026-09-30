@@ -1,0 +1,16 @@
+#!/bin/bash
+set -euo pipefail
+# Resolve an installed symlink before finding the repository scripts.
+SOURCE="${BASH_SOURCE[0]}"
+while [[ -L "$SOURCE" ]]; do
+  DIRECTORY="$(cd "$(dirname "$SOURCE")" && pwd)"
+  SOURCE="$(readlink "$SOURCE")"
+  [[ "$SOURCE" = /* ]] || SOURCE="$DIRECTORY/$SOURCE"
+done
+SCRIPT_DIR="$(cd "$(dirname "$SOURCE")" && pwd)"
+PYTHON="${SOUNDPLOEG_PYTHON:-${SOUNDPLOEG_SUPPORT_DIR:-$HOME/Library/Application Support/SoundPloeg}/tts-venv/bin/python}"
+if [[ ! -x "$PYTHON" ]]; then
+  echo "SoundPloeg Python is missing. Run $SCRIPT_DIR/bootstrap_tts.sh first." >&2
+  exit 1
+fi
+exec "$PYTHON" -B "$SCRIPT_DIR/soundploeg_cli.py" "$@"

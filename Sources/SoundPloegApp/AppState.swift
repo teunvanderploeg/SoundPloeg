@@ -8,6 +8,7 @@ final class AppState: ObservableObject {
     @Published var status: AppStatus = .idle
     @Published var lastClipboardPreview: String = "No clipboard text yet."
     @Published var queueDepth: Int = 0
+    @Published var currentSpeech: CurrentSpeech?
     @Published var activeVoice: VoiceDescriptor?
     @Published var availableVoices: [VoiceDescriptor] = []
     @Published var speechRate: Float
@@ -54,13 +55,17 @@ final class AppState: ObservableObject {
         )
     }()
 
-    init() {
-        let settings = UserDefaultsSettingsStore()
+    init(
+        settings: SettingsStore = UserDefaultsSettingsStore(),
+        clipboard: ClipboardService = NSPasteboardClipboardService(),
+        queue: SpeechQueueCoordinator? = nil,
+        appSupportURL: URL? = nil,
+        startsAutomatically: Bool = true
+    ) {
         let diagnostics = InMemoryDiagnosticsService()
-        let clipboard = NSPasteboardClipboardService()
         let hotkey = CarbonHotkeyService()
 
-        let appSupport = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first!
+        let appSupport = appSupportURL ?? FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first!
             .appendingPathComponent("SoundPloeg", isDirectory: true)
         let defaultModelRoot = appSupport.appendingPathComponent("models", isDirectory: true)
         let historyAudioDirectoryURL = appSupport.appendingPathComponent("history_audio", isDirectory: true)
@@ -74,10 +79,9 @@ final class AppState: ObservableObject {
         )
         let system = SystemTTSService()
         let composite = CompositeTTSService(local: local, system: system, diagnostics: diagnostics)
-        let playback = AVAudioPlaybackEngine()
-        let queue = SpeechQueueCoordinator(
+        let queue = queue ?? SpeechQueueCoordinator(
             ttsService: composite,
-            playbackEngine: playback,
+            playbackEngine: AVAudioPlaybackEngine(),
             diagnosticsService: diagnostics
         )
 
@@ -94,13 +98,15 @@ final class AppState: ObservableObject {
         self.hotkeyShortcut = settings.hotkeyShortcut
         loadSpeechHistoryFromSettings()
 
-        Task { [weak self, queueCoordinator] in
-            await queueCoordinator.setJobCompletionHandler { [weak self] job, voice, output in
-                Task { @MainActor in
-                    await self?.handleCompletedJob(job: job, voice: voice, output: output)
+        if startsAutomatically {
+            Task { [weak self, queueCoordinator] in
+                await queueCoordinator.setJobCompletionHandler { [weak self] job, voice, output in
+                    Task { @MainActor in
+                        await self?.handleCompletedJob(job: job, voice: voice, output: output)
+                    }
                 }
+                await self?.bootstrap()
             }
-            await self?.bootstrap()
         }
     }
 
@@ -289,14 +295,15 @@ final class AppState: ObservableObject {
         stateTask?.cancel()
         stateTask = Task {
             while !Task.isCancelled {
-                let newStatus = await queueCoordinator.currentStatus()
-                let depth = await queueCoordinator.queueDepth()
+                let snapshot = await queueCoordinator.snapshot()
                 let diagnostics = await diagnosticsService.messages()
 
                 await MainActor.run {
-                    if self.status != newStatus { self.status = newStatus }
-                    if self.queueDepth != depth { self.queueDepth = depth }
-                    if self.diagnosticsMessages != diagnostics { self.diagnosticsMessages = diagnostics }
+                    self.applySnapshot(snapshot)
+                    if self.diagnosticsMessages != diagnostics {
+                        self.diagnosticsMessages = diagnostics
+                        if let message = diagnostics.last { self.latestMessage = message }
+                    }
                 }
 
                 try? await Task.sleep(nanoseconds: 150_000_000)
@@ -337,6 +344,37 @@ final class AppState: ObservableObject {
         }
     }
 
+    private func applySnapshot(_ snapshot: SpeechQueueSnapshot) {
+        if status != snapshot.status { status = snapshot.status }
+        if queueDepth != snapshot.queueDepth { queueDepth = snapshot.queueDepth }
+        if currentSpeech != snapshot.currentSpeech { currentSpeech = snapshot.currentSpeech }
+    }
+
+    var statusLabel: String {
+        switch status {
+        case .idle: return "Idle"
+        case .speaking: return currentSpeech?.phase == .preparing ? "Preparing speech" : "Playing"
+        case .paused: return "Paused"
+        case .error: return "Error"
+        }
+    }
+
+    func canPerform(_ action: SpeechAction) -> Bool {
+        switch action {
+        case .speak: return activeVoice != nil
+        case .playQueue: return queueDepth > 0 && currentSpeech == nil
+        case .pause: return status == .speaking || status == .paused
+        case .stop: return currentSpeech != nil || queueDepth > 0
+        case .skip: return currentSpeech != nil
+        case .clear: return queueDepth > 0
+        }
+    }
+
+    func playQueue() async {
+        await queueCoordinator.speakNowIfIdle()
+        applySnapshot(await queueCoordinator.snapshot())
+    }
+
     func stop() async {
         await queueCoordinator.stop()
     }
@@ -352,11 +390,13 @@ final class AppState: ObservableObject {
     func perform(_ action: SpeechAction) async {
         switch action {
         case .speak: await speakNow()
+        case .playQueue: await playQueue()
         case .pause: await pauseOrResume()
         case .stop: await stop()
         case .skip: await skip()
         case .clear: await clearQueue()
         }
+        applySnapshot(await queueCoordinator.snapshot())
     }
 
     func previewVoice(_ voice: VoiceDescriptor) async {
@@ -394,6 +434,41 @@ final class AppState: ObservableObject {
 
     var recentHistoryWithAudio: [SpeechHistoryEntry] {
         speechHistory.filter { $0.audioFilePath != nil }.prefix(maxStoredAudioHistoryFiles).map { $0 }
+    }
+
+    func replayHistory(_ entry: SpeechHistoryEntry, useCurrentVoice: Bool = false) async {
+        let voice = useCurrentVoice ? activeVoice : availableVoices.first { $0.id == entry.voiceID }
+        guard let voice else {
+            latestMessage = UserMessage(title: "Voice Unavailable", detail: "Install the original voice pack, or choose Replay with current voice.", severity: .warning)
+            return
+        }
+        do {
+            try await queueCoordinator.enqueue(SpeechJob(text: entry.text, voiceID: voice.id,
+                                                        rate: useCurrentVoice ? speechRate : entry.rate))
+            await queueCoordinator.speakNowIfIdle()
+            applySnapshot(await queueCoordinator.snapshot())
+            latestMessage = UserMessage(title: "Replay Queued", detail: "Reading with \(voice.name).", severity: .info)
+        } catch {
+            let message = ErrorMapper.map(error)
+            latestMessage = message
+            await diagnosticsService.publish(message)
+        }
+    }
+
+    func copyHistoryText(_ entry: SpeechHistoryEntry) {
+        NSPasteboard.general.clearContents()
+        NSPasteboard.general.setString(entry.text, forType: .string)
+        latestMessage = UserMessage(title: "Text Copied", detail: "The full reading is on your clipboard.", severity: .info)
+    }
+
+    func deleteHistoryEntry(_ entry: SpeechHistoryEntry) {
+        let audioURL = historyAudioURL(for: entry)
+        speechHistory.removeAll { $0.id == entry.id }
+        persistSpeechHistory()
+        if let audioURL {
+            Task.detached { try? FileManager.default.removeItem(at: audioURL) }
+        }
+        latestMessage = UserMessage(title: "History Item Deleted", detail: "Removed the text and any saved audio for this item.", severity: .info)
     }
 
     func exportHistoryAudio(_ entry: SpeechHistoryEntry) {

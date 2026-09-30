@@ -45,6 +45,8 @@ private enum SettingsTab: String, CaseIterable, Identifiable {
 struct SettingsWindowView: View {
     @ObservedObject var appState: AppState
     @State private var selectedTab: SettingsTab? = .overview
+    @State private var historySearch = ""
+    @State private var expandedHistoryIDs: Set<UUID> = []
 
     var body: some View {
         NavigationSplitView {
@@ -128,6 +130,7 @@ struct SettingsWindowView: View {
             ScrollView {
                 VStack(alignment: .leading, spacing: 16) {
                     hero
+                    SpeechMessageView(appState: appState)
 
                     switch selectedTab ?? .overview {
                     case .overview:
@@ -193,6 +196,7 @@ struct SettingsWindowView: View {
             card(title: "Runtime", subtitle: "Current status and clipboard") {
                 VStack(alignment: .leading, spacing: 10) {
                     Text("State: \(statusLabel)")
+                    CurrentSpeechView(appState: appState)
                     Text("Last clipboard")
                         .font(.caption)
                         .foregroundStyle(.secondary)
@@ -207,13 +211,8 @@ struct SettingsWindowView: View {
             }
 
             card(title: "Quick Actions", subtitle: "Control playback") {
-                HStack(spacing: 8) {
-                    Button("Speak Now") { Task { await appState.speakNow() } }
-                        .buttonStyle(.borderedProminent)
-                    Button(appState.status == .paused ? "Resume" : "Pause") { Task { await appState.pauseOrResume() } }
-                    Button("Stop") { Task { await appState.stop() } }
-                    Button("Skip") { Task { await appState.skip() } }
-                    Button("Clear Queue") { Task { await appState.clearQueue() } }
+                VStack(alignment: .leading, spacing: 8) {
+                    SpeechActionButtons(appState: appState)
                 }
             }
         }
@@ -390,28 +389,55 @@ struct SettingsWindowView: View {
                 }
             }
 
-            card(title: "Text History", subtitle: "Older items keep text but audio file is cleaned") {
+            card(title: "Text History", subtitle: "Replay, copy, or inspect a previous reading") {
+                TextField("Search text or voice", text: $historySearch)
+                    .textFieldStyle(.roundedBorder)
                 if appState.speechHistory.isEmpty {
                     Text("No speech history yet")
                         .foregroundStyle(.secondary)
+                } else if filteredHistory.isEmpty {
+                    Text("No readings match your search").foregroundStyle(.secondary)
                 } else {
                     VStack(alignment: .leading, spacing: 8) {
-                        ForEach(appState.speechHistory, id: \.id) { entry in
-                            HStack(alignment: .top, spacing: 10) {
-                                VStack(alignment: .leading, spacing: 2) {
-                                    Text(entry.text)
-                                        .lineLimit(2)
-                                    Text("\(entry.voiceName) • \(entry.createdAt.formatted(date: .abbreviated, time: .shortened))")
-                                        .font(.caption)
-                                        .foregroundStyle(.secondary)
-                                }
-                                Spacer()
-                                if entry.audioFilePath != nil {
-                                    statusBadge("Audio kept", isGood: true)
-                                } else {
-                                    statusBadge("Text only", isGood: false)
+                        ForEach(filteredHistory, id: \.id) { entry in
+                            VStack(alignment: .leading, spacing: 8) {
+                                Text(entry.text)
+                                    .lineLimit(expandedHistoryIDs.contains(entry.id) ? nil : 2)
+                                    .textSelection(.enabled)
+                                Text("\(entry.voiceName) • \(entry.createdAt.formatted(date: .abbreviated, time: .shortened))")
+                                    .font(.caption)
+                                    .foregroundStyle(.secondary)
+                                HStack {
+                                    Button("Replay") { Task { await appState.replayHistory(entry) } }
+                                    Menu("More") {
+                                        Button("Replay with current voice") {
+                                            Task { await appState.replayHistory(entry, useCurrentVoice: true) }
+                                        }
+                                        .disabled(appState.activeVoice == nil)
+                                        Button("Copy text") { appState.copyHistoryText(entry) }
+                                        Button(expandedHistoryIDs.contains(entry.id) ? "Collapse text" : "Show full text") {
+                                            if expandedHistoryIDs.contains(entry.id) {
+                                                expandedHistoryIDs.remove(entry.id)
+                                            } else {
+                                                expandedHistoryIDs.insert(entry.id)
+                                            }
+                                        }
+                                        if entry.audioFilePath != nil {
+                                            Button("Export WAV…") { appState.exportHistoryAudio(entry) }
+                                        }
+                                        Divider()
+                                        Button("Delete reading", role: .destructive) {
+                                            appState.deleteHistoryEntry(entry)
+                                            expandedHistoryIDs.remove(entry.id)
+                                        }
+                                    }
+                                    Spacer()
+                                    Text(entry.audioFilePath == nil ? "Text only" : "Audio kept")
+                                        .font(.caption).foregroundStyle(.secondary)
                                 }
                             }
+                            .padding(.vertical, 8)
+                            Divider()
                         }
 
                         HStack {
@@ -424,6 +450,14 @@ struct SettingsWindowView: View {
                     }
                 }
             }
+        }
+    }
+
+    private var filteredHistory: [SpeechHistoryEntry] {
+        let query = historySearch.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !query.isEmpty else { return appState.speechHistory }
+        return appState.speechHistory.filter {
+            $0.text.localizedCaseInsensitiveContains(query) || $0.voiceName.localizedCaseInsensitiveContains(query)
         }
     }
 
@@ -475,12 +509,7 @@ struct SettingsWindowView: View {
     }
 
     private var statusLabel: String {
-        switch appState.status {
-        case .idle: return "Idle"
-        case .speaking: return "Speaking"
-        case .paused: return "Paused"
-        case .error: return "Error"
-        }
+        appState.statusLabel
     }
 
     private var isErrorStatus: Bool {

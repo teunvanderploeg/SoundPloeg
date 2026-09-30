@@ -1,0 +1,2 @@
+# Kept in a separate venv so MCP dependencies cannot alter the app's TTS runtime.
+mcp==1.30.0

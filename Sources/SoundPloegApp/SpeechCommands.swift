@@ -2,13 +2,14 @@ import SwiftUI
 
 /// Shared by the menu, shortcut reference, and application commands.
 enum SpeechAction: String, CaseIterable, Identifiable {
-    case speak, pause, stop, skip, clear
+    case speak, playQueue, pause, stop, skip, clear
 
     var id: Self { self }
 
     var title: String {
         switch self {
         case .speak: return "Speak Clipboard"
+        case .playQueue: return "Play Queue"
         case .pause: return "Pause / Resume"
         case .stop: return "Stop"
         case .skip: return "Skip"
@@ -19,6 +20,7 @@ enum SpeechAction: String, CaseIterable, Identifiable {
     var key: KeyEquivalent {
         switch self {
         case .speak: return .return
+        case .playQueue: return .return
         case .pause: return "p"
         case .stop: return "."
         case .skip: return .rightArrow
@@ -29,13 +31,14 @@ enum SpeechAction: String, CaseIterable, Identifiable {
     var modifiers: EventModifiers {
         switch self {
         case .speak, .stop: return .command
-        case .pause, .skip, .clear: return [.command, .option]
+        case .playQueue, .pause, .skip, .clear: return [.command, .option]
         }
     }
 
     var shortcutLabel: String {
         switch self {
         case .speak: return "⌘↩"
+        case .playQueue: return "⌥⌘↩"
         case .pause: return "⌥⌘P"
         case .stop: return "⌘."
         case .skip: return "⌥⌘→"
@@ -53,6 +56,7 @@ struct SpeechActionButtons: View {
                 Task { await appState.perform(action) }
             }
             .keyboardShortcut(action.key, modifiers: action.modifiers)
+            .disabled(!appState.canPerform(action))
         }
     }
 }

@@ -17,6 +17,7 @@ public actor SpeechQueueCoordinator {
     private var shouldStopCurrent = false
     private var shouldSkipCurrent = false
     private var interruptionCount = 0
+    private var currentSpeech: CurrentSpeech?
 
     private(set) var state: AppStatus = .idle {
         didSet { onStatusChange?(state) }
@@ -58,6 +59,10 @@ public actor SpeechQueueCoordinator {
         state
     }
 
+    public func snapshot() -> SpeechQueueSnapshot {
+        SpeechQueueSnapshot(status: state, queueDepth: jobs.count, currentSpeech: currentSpeech)
+    }
+
     public func enqueue(_ job: SpeechJob) throws {
         guard jobs.count < maxQueueDepth else {
             throw SoundPloegError.queueFull(max: maxQueueDepth)
@@ -95,6 +100,7 @@ public actor SpeechQueueCoordinator {
             speakNowIfIdle()
         }
         shouldStopCurrent = true
+        currentSpeech = nil
         jobs.removeAll()
         onQueueDepthChange?(0)
         processingTask?.cancel()
@@ -111,6 +117,7 @@ public actor SpeechQueueCoordinator {
             speakNowIfIdle()
         }
         shouldSkipCurrent = true
+        currentSpeech = nil
         await playbackEngine.stop()
         await ttsService.cancelSynthesis()
     }
@@ -126,6 +133,7 @@ public actor SpeechQueueCoordinator {
 
     private func processQueue() async {
         defer {
+            currentSpeech = nil
             processingTask = nil
             if case .error = state {
                 // Keep error status visible until the next user action.
@@ -149,7 +157,9 @@ public actor SpeechQueueCoordinator {
             onQueueDepthChange?(jobs.count)
 
             guard let voice = availableVoicesByID[job.voiceID] else {
-                await diagnosticsService.publish(ErrorMapper.map(SoundPloegError.unavailableVoice(job.voiceID)))
+                let message = ErrorMapper.map(SoundPloegError.unavailableVoice(job.voiceID))
+                state = .error(message)
+                await diagnosticsService.publish(message)
                 continue
             }
 
@@ -159,6 +169,9 @@ public actor SpeechQueueCoordinator {
             var next: Task<TTSOutput, Error>?
             do {
                 let chunks = Self.chunkedText(job.text, maxChunkLength: maxChunkLength)
+                currentSpeech = CurrentSpeech(job: job, voiceName: voice.name, phase: .preparing,
+                                              chunkIndex: 1, totalChunks: chunks.count, completedChunks: 0)
+                defer { currentSpeech = nil }
                 var firstOutput: TTSOutput?
                 var completedAllChunks = true
                 defer { next?.cancel() }
@@ -168,6 +181,8 @@ public actor SpeechQueueCoordinator {
                         completedAllChunks = false
                         break
                     }
+                    currentSpeech?.phase = .preparing
+                    currentSpeech?.chunkIndex = index + 1
                     let output: TTSOutput
                     if let prefetched = next {
                         output = try await prefetched.value
@@ -200,7 +215,9 @@ public actor SpeechQueueCoordinator {
                                 return result
                             }
                         }
+                        currentSpeech?.phase = .playing
                         try await playbackEngine.play(output: output)
+                        currentSpeech?.completedChunks = index + 1
                         if chunks.count > 1 { Self.removeTemporaryAudio(output) }
                         if shouldStopCurrent || shouldSkipCurrent {
                             completedAllChunks = false
@@ -246,10 +263,10 @@ public actor SpeechQueueCoordinator {
     static func chunkedText(_ text: String, maxChunkLength: Int) -> [String] {
         // Preserve punctuation and words. Prefer a sentence boundary, then whitespace.
         let limit = max(1, maxChunkLength)
-        var remaining = text.trimmingCharacters(in: .whitespacesAndNewlines)
+        var remaining = text.trimmingCharacters(in: .whitespacesAndNewlines)[...]
         var chunks: [String] = []
-        while remaining.count > limit {
-            let end = remaining.index(remaining.startIndex, offsetBy: limit)
+        while let end = remaining.index(remaining.startIndex, offsetBy: limit, limitedBy: remaining.endIndex),
+              end != remaining.endIndex {
             let prefix = remaining[..<end]
             let sentenceBoundary = prefix.indices.last { index in
                 guard ".!?;\n".contains(prefix[index]) else { return false }
@@ -260,13 +277,13 @@ public actor SpeechQueueCoordinator {
             if let sentenceBoundary { split = remaining.index(after: sentenceBoundary) }
             else { split = prefix.lastIndex(where: { $0.isWhitespace }) ?? end }
             if split == remaining.startIndex {
-                remaining = String(remaining.dropFirst()).trimmingCharacters(in: .whitespacesAndNewlines)
+                remaining = remaining.dropFirst()
                 continue
             }
             chunks.append(String(remaining[..<split]).trimmingCharacters(in: .whitespacesAndNewlines))
-            remaining = String(remaining[split...]).trimmingCharacters(in: .whitespacesAndNewlines)
+            remaining = remaining[split...].drop(while: { $0.isWhitespace })
         }
-        if !remaining.isEmpty { chunks.append(remaining) }
+        if !remaining.isEmpty { chunks.append(String(remaining)) }
         return chunks
     }
 }

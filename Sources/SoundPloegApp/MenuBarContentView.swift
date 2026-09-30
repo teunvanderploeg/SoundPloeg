@@ -22,11 +22,13 @@ struct MenuBarContentView: View {
             Text("Global shortcut: \(appState.hotkeyShortcut.displayName)")
                 .font(.caption)
                 .foregroundStyle(.secondary)
+            SpeechMessageView(appState: appState)
+            CurrentSpeechView(appState: appState)
             SpeechActionButtons(appState: appState)
 
             if !appState.lastClipboardPreview.isEmpty,
                appState.lastClipboardPreview != "No clipboard text yet." {
-                Text("Last transcript")
+                Text("Last clipboard")
                     .font(.caption)
                     .foregroundStyle(.secondary)
 
@@ -53,12 +55,7 @@ struct MenuBarContentView: View {
     }
 
     private var statusLabel: String {
-        switch appState.status {
-        case .idle: return "Idle"
-        case .speaking: return "Speaking"
-        case .paused: return "Paused"
-        case .error: return "Error"
-        }
+        appState.statusLabel
     }
 
     private var clipboardPreview: String {

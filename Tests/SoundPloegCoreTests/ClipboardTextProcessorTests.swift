@@ -13,11 +13,12 @@ final class ClipboardTextProcessorTests: XCTestCase {
         }
     }
 
-    func testValidateTruncatesLongTextWithWarning() throws {
-        let raw = String(repeating: "a", count: ClipboardTextProcessor.maxLength + 50)
+    func testValidatePreservesCompleteLongTextWithNotice() throws {
+        let raw = String(repeating: "A long reading. ", count: 10_000) + "Final sentence."
         let payload = try ClipboardTextProcessor.validateAndBuildPayload(raw)
 
-        XCTAssertEqual(payload.normalizedText.count, ClipboardTextProcessor.maxLength)
-        XCTAssertNotNil(payload.warning)
+        XCTAssertEqual(payload.normalizedText, raw)
+        XCTAssertEqual(payload.warning?.severity, .info)
+        XCTAssertTrue(payload.preview.count < raw.count)
     }
 }
