@@ -11,6 +11,7 @@ let package = Package(
         .library(name: "SoundPloegInfra", targets: ["SoundPloegInfra"]),
         .executable(name: "SoundPloeg", targets: ["SoundPloeg"])
     ],
+    dependencies: [.package(path: "../PloegKit")],
     targets: [
         .target(
             name: "SoundPloegCore",
@@ -26,7 +27,7 @@ let package = Package(
         ),
         .executableTarget(
             name: "SoundPloeg",
-            dependencies: ["SoundPloegCore", "SoundPloegInfra"],
+            dependencies: ["SoundPloegCore", "SoundPloegInfra", .product(name: "PloegKit", package: "PloegKit")],
             path: "Sources/SoundPloegApp",
             resources: [
                 .process("Resources")

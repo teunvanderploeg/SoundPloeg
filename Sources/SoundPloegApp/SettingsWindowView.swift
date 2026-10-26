@@ -1,6 +1,7 @@
 import AppKit
 import SoundPloegCore
 import SwiftUI
+import PloegKit
 
 private enum SettingsTab: String, CaseIterable, Identifiable {
     case overview
@@ -42,96 +43,95 @@ private enum SettingsTab: String, CaseIterable, Identifiable {
     }
 }
 
+@MainActor
 struct SettingsWindowView: View {
     @ObservedObject var appState: AppState
+    var isPreview = false
     @State private var selectedTab: SettingsTab? = .overview
     @State private var historySearch = ""
     @State private var expandedHistoryIDs: Set<UUID> = []
 
     var body: some View {
-        NavigationSplitView {
+        HStack(spacing: 0) {
             sidebar
-        } detail: {
+            Rectangle().fill(PloegTheme.line).frame(width: 1)
             detail
         }
-        .navigationSplitViewStyle(.balanced)
-        .preferredColorScheme(.dark)
-        .background(background)
+        .tint(PloegTheme.accent)
+        .foregroundStyle(PloegTheme.ink)
+        .background(PloegTheme.canvas)
         .onAppear {
             NSApp.setActivationPolicy(.regular)
             NSApplication.shared.activate(ignoringOtherApps: true)
         }
         .onDisappear {
-            NSApp.setActivationPolicy(.accessory)
+            if !isPreview { NSApp.setActivationPolicy(.accessory) }
         }
     }
 
     private var sidebar: some View {
-        ZStack {
-            background
-
-            List(SettingsTab.allCases, selection: $selectedTab) { tab in
-                HStack(spacing: 10) {
-                    Image(systemName: tab.icon)
-                        .font(.callout.weight(.semibold))
-                        .foregroundStyle(selectedTab == tab ? .white : .primary)
-                        .frame(width: 20)
-
-                    VStack(alignment: .leading, spacing: 1) {
-                        Text(tab.title)
-                            .font(.system(size: 13, weight: .semibold, design: .rounded))
-                        Text(tab.subtitle)
-                            .font(.caption2)
-                            .foregroundStyle(selectedTab == tab ? .white.opacity(0.85) : .secondary)
-                    }
-                    Spacer(minLength: 0)
+        VStack(alignment: .leading, spacing: 0) {
+            HStack(spacing: 10) {
+                PloegAppIcon(.sound, size: 42)
+                VStack(alignment: .leading, spacing: 3) {
+                    Text("SoundPloeg")
+                        .font(.system(size: 20, weight: .semibold, design: .rounded))
+                    Text("Text to speech")
+                        .font(.system(size: 12))
+                        .foregroundStyle(PloegTheme.muted)
                 }
-                .padding(.vertical, 6)
-                .listRowBackground(
-                    RoundedRectangle(cornerRadius: 10, style: .continuous)
-                        .fill(selectedTab == tab ? Color.blue.opacity(0.9) : Color.clear)
-                        .padding(.vertical, 2)
-                )
-                .foregroundStyle(selectedTab == tab ? .white : .primary)
-                .tag(tab)
             }
-            .scrollContentBackground(.hidden)
-            .listStyle(.sidebar)
-            .safeAreaInset(edge: .top) {
-                HStack(spacing: 10) {
-                    Image(nsImage: AppBrand.icon)
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 48, height: 48)
-                        .accessibilityHidden(true)
+            .padding(.horizontal, 20)
+            .padding(.top, 26)
+            .padding(.bottom, 28)
 
-                    VStack(alignment: .leading, spacing: 4) {
-                        Text("SoundPloeg")
-                            .font(.system(size: 22, weight: .bold, design: .rounded))
-                        Text("Settings")
-                            .font(.caption)
-                            .foregroundStyle(.secondary)
+            VStack(spacing: 5) {
+                ForEach(SettingsTab.allCases) { tab in
+                    Button {
+                        selectedTab = tab
+                    } label: {
+                        HStack(spacing: 11) {
+                            Image(systemName: tab.icon)
+                                .font(.system(size: 15, weight: .medium))
+                                .frame(width: 20)
+                            Text(tab.title)
+                                .font(.system(size: 13, weight: selectedTab == tab ? .semibold : .regular))
+                            Spacer(minLength: 0)
+                        }
+                        .foregroundStyle(selectedTab == tab ? PloegTheme.accent : PloegTheme.muted)
+                        .padding(.horizontal, 12)
+                        .frame(height: 42)
+                        .background(selectedTab == tab ? PloegTheme.accentSoft : Color.clear,
+                                    in: RoundedRectangle(cornerRadius: 8))
+                        .contentShape(RoundedRectangle(cornerRadius: 8))
                     }
+                    .buttonStyle(.plain)
+                    .accessibilityAddTraits(selectedTab == tab ? .isSelected : [])
+                    .help(tab.subtitle)
                 }
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .padding(.horizontal, 16)
-                .padding(.top, 8)
-                .padding(.bottom, 6)
-                .background(.ultraThinMaterial.opacity(0.25))
             }
+            .padding(.horizontal, 12)
+            Spacer(minLength: 24)
+            VStack(alignment: .leading, spacing: 5) {
+                Label("Runs on your Mac", systemImage: "desktopcomputer")
+                    .font(.system(size: 12, weight: .medium))
+                Text("English and Dutch voices")
+                    .font(.system(size: 11))
+            }
+            .foregroundStyle(PloegTheme.muted)
+            .padding(20)
         }
-        .frame(minWidth: 290)
+        .frame(width: 216)
+        .background(PloegTheme.canvas)
     }
 
     private var detail: some View {
-        ZStack {
-            background
+        ScrollView {
+            VStack(alignment: .leading, spacing: 18) {
+                hero
+                SpeechMessageView(appState: appState)
 
-            ScrollView {
-                VStack(alignment: .leading, spacing: 16) {
-                    hero
-                    SpeechMessageView(appState: appState)
-
+                Group {
                     switch selectedTab ?? .overview {
                     case .overview:
                         overviewSection
@@ -145,55 +145,35 @@ struct SettingsWindowView: View {
                         diagnosticsSection
                     }
                 }
-                .padding(20)
+                .disabled(isPreview)
             }
+            .padding(28)
+            .frame(maxWidth: 960, alignment: .leading)
+            .frame(maxWidth: .infinity, alignment: .topLeading)
         }
+        .background(PloegTheme.canvas)
     }
 
     private var hero: some View {
         let tab = selectedTab ?? .overview
-
-        return VStack(alignment: .leading, spacing: 10) {
-            HStack(alignment: .top) {
-                Image(systemName: tab.icon)
-                    .font(.title3.weight(.semibold))
-                    .foregroundStyle(.white.opacity(0.9))
-                    .frame(width: 28)
-
-                VStack(alignment: .leading, spacing: 3) {
-                    Text(tab.title)
-                        .font(.system(size: 28, weight: .bold, design: .rounded))
-                    Text(tab.subtitle)
-                        .font(.subheadline)
-                        .foregroundStyle(.secondary)
-                }
-
-                Spacer(minLength: 8)
-
-                HStack(spacing: 8) {
-                    statusBadge(statusLabel, isGood: !isErrorStatus)
-                    statusBadge("Voices \(appState.localVoices.count)", isGood: !appState.localVoices.isEmpty)
-                }
+        return HStack(alignment: .top, spacing: 16) {
+            VStack(alignment: .leading, spacing: 7) {
+                Text(tab.title)
+                    .font(.system(size: 28, weight: .semibold))
+                    .tracking(-0.6)
+                Text(tab.subtitle)
+                    .font(.system(size: 13))
+                    .foregroundStyle(PloegTheme.muted)
             }
-
-            HStack(spacing: 14) {
-                labeledRuntime("Queue", value: "\(appState.queueDepth)")
-                Divider().frame(height: 16)
-                labeledRuntime("Voice", value: appState.activeVoice?.name ?? "Not set")
-                Divider().frame(height: 16)
-                labeledRuntime("Diagnostics", value: "\(appState.diagnosticsMessages.count)")
-            }
-            .font(.callout)
-            .foregroundStyle(.secondary)
+            Spacer(minLength: 12)
+            PloegStatusPill(statusLabel, systemImage: statusIcon, color: statusColor)
         }
-        .padding(16)
-        .frame(maxWidth: .infinity, alignment: .leading)
-        .background(cardBackground)
+        .padding(.bottom, 8)
     }
 
     private var overviewSection: some View {
         VStack(alignment: .leading, spacing: 12) {
-            card(title: "Runtime", subtitle: "Current status and clipboard") {
+            card(title: "Playback", subtitle: "Current reading and waiting items") {
                 VStack(alignment: .leading, spacing: 10) {
                     Text("State: \(statusLabel)")
                     CurrentSpeechView(appState: appState)
@@ -206,13 +186,13 @@ struct SettingsWindowView: View {
                 }
             }
 
-            card(title: "Keyboard Shortcuts", subtitle: "Use the global shortcut from any app") {
+            card(title: "Keyboard shortcuts", subtitle: "Use the global shortcut from any app") {
                 KeyboardShortcutReference(appState: appState)
             }
 
-            card(title: "Quick Actions", subtitle: "Control playback") {
+            card(title: "Quick actions", subtitle: "Control playback") {
                 VStack(alignment: .leading, spacing: 8) {
-                    SpeechActionButtons(appState: appState)
+                    SpeechPlaybackControls(appState: appState, horizontal: true)
                 }
             }
         }
@@ -242,7 +222,7 @@ struct SettingsWindowView: View {
                     ))
                 }
             }
-            card(title: "Keyboard Shortcuts", subtitle: "Playback controls and app commands") {
+            card(title: "Keyboard shortcuts", subtitle: "Playback controls and app commands") {
                 KeyboardShortcutReference(appState: appState)
             }
         }
@@ -250,13 +230,13 @@ struct SettingsWindowView: View {
 
     private var modelSection: some View {
         VStack(alignment: .leading, spacing: 12) {
-            card(title: "Installed Models", subtitle: "English and Dutch voices, available offline") {
+            card(title: "Installed voices", subtitle: "English and Dutch voices, available offline") {
                 if appState.localVoices.isEmpty {
                     Text("No local models installed")
                         .foregroundStyle(.secondary)
                 } else {
                     VStack(alignment: .leading, spacing: 10) {
-                        Picker("Active Voice", selection: Binding(
+                        Picker("Active voice", selection: Binding(
                             get: { appState.activeVoice?.id ?? "" },
                             set: { newID in
                                 if let voice = appState.localVoices.first(where: { $0.id == newID }) {
@@ -301,7 +281,7 @@ struct SettingsWindowView: View {
                                 }
 
                                 if let model = appState.downloadableModel(for: voice) {
-                                    Button(appState.isModelRemoving(model) ? "Removing..." : "Remove Pack") {
+                                    Button(appState.isModelRemoving(model) ? "Removing..." : "Remove pack") {
                                         Task { await appState.removeModel(model) }
                                     }
                                     .buttonStyle(.bordered)
@@ -359,7 +339,7 @@ struct SettingsWindowView: View {
 
     private var historySection: some View {
         VStack(alignment: .leading, spacing: 12) {
-            card(title: "Recent Downloadable Audio", subtitle: "Only the latest 3 keep local WAV files") {
+            card(title: "Saved audio", subtitle: "The latest three readings keep their WAV files") {
                 if appState.recentHistoryWithAudio.isEmpty {
                     Text("No saved audio files yet")
                         .foregroundStyle(.secondary)
@@ -389,7 +369,7 @@ struct SettingsWindowView: View {
                 }
             }
 
-            card(title: "Text History", subtitle: "Replay, copy, or inspect a previous reading") {
+            card(title: "Reading history", subtitle: "Replay, copy, or inspect a previous reading") {
                 TextField("Search text or voice", text: $historySearch)
                     .textFieldStyle(.roundedBorder)
                 if appState.speechHistory.isEmpty {
@@ -442,7 +422,7 @@ struct SettingsWindowView: View {
 
                         HStack {
                             Spacer()
-                            Button("Clear History") {
+                            Button("Clear history") {
                                 appState.clearHistoryTextOnly()
                             }
                             .buttonStyle(.bordered)
@@ -462,85 +442,41 @@ struct SettingsWindowView: View {
     }
 
     private func card<Content: View>(title: String, subtitle: String, @ViewBuilder content: () -> Content) -> some View {
-        VStack(alignment: .leading, spacing: 10) {
-            VStack(alignment: .leading, spacing: 2) {
-                Text(title)
-                    .font(.title3.weight(.semibold))
+        PloegCard(title: title) {
+            VStack(alignment: .leading, spacing: 12) {
                 Text(subtitle)
-                    .font(.caption)
-                    .foregroundStyle(.secondary)
+                    .font(.system(size: 12))
+                    .foregroundStyle(PloegTheme.muted)
+                content()
+                    .font(.system(size: 13))
             }
-
-            content()
         }
-        .padding(16)
-        .frame(maxWidth: .infinity, alignment: .leading)
-        .background(cardBackground)
-    }
-
-    private var cardBackground: some View {
-        RoundedRectangle(cornerRadius: 16, style: .continuous)
-            .fill(.ultraThinMaterial)
-            .overlay(
-                RoundedRectangle(cornerRadius: 16, style: .continuous)
-                    .fill(Color.black.opacity(0.18))
-            )
-            .overlay(
-                RoundedRectangle(cornerRadius: 16, style: .continuous)
-                    .stroke(Color.white.opacity(0.08), lineWidth: 1)
-            )
     }
 
     private func statusBadge(_ title: String, isGood: Bool) -> some View {
-        Text(title)
-            .font(.caption.weight(.semibold))
-            .padding(.horizontal, 10)
-            .padding(.vertical, 6)
-            .background((isGood ? Color.green : Color.gray).opacity(0.2), in: Capsule())
-            .foregroundStyle((isGood ? Color.green : Color.secondary).opacity(0.95))
-    }
-
-    private func labeledRuntime(_ title: String, value: String) -> some View {
-        HStack(spacing: 6) {
-            Text(title)
-            Text(value)
-                .fontWeight(.semibold)
-        }
+        PloegStatusPill(title,
+                        systemImage: isGood ? "checkmark.circle.fill" : "exclamationmark.circle.fill",
+                        color: isGood ? PloegTheme.success : PloegTheme.warning)
     }
 
     private var statusLabel: String {
         appState.statusLabel
     }
 
-    private var isErrorStatus: Bool {
-        if case .error = appState.status {
-            return true
+    private var statusColor: Color {
+        switch appState.status {
+        case .idle, .speaking: return PloegTheme.success
+        case .paused: return PloegTheme.warning
+        case .error: return PloegTheme.danger
         }
-        return false
     }
 
-    private var background: some View {
-        ZStack {
-            LinearGradient(
-                colors: [
-                    Color(red: 0.07, green: 0.08, blue: 0.10),
-                    Color(red: 0.10, green: 0.10, blue: 0.13),
-                    Color.black
-                ],
-                startPoint: .topLeading,
-                endPoint: .bottomTrailing
-            )
-
-            Rectangle()
-                .fill(
-                    LinearGradient(
-                        colors: [Color.blue.opacity(0.18), Color.clear, Color.cyan.opacity(0.08)],
-                        startPoint: .topLeading,
-                        endPoint: .bottomTrailing
-                    )
-                )
-                .blur(radius: 38)
+    private var statusIcon: String {
+        switch appState.status {
+        case .idle: return "checkmark.circle.fill"
+        case .speaking: return "waveform"
+        case .paused: return "pause.circle.fill"
+        case .error: return "exclamationmark.circle.fill"
         }
-        .ignoresSafeArea()
     }
 }

@@ -2,6 +2,9 @@
 
 A local macOS menu bar app that reads clipboard text aloud in English and Dutch.
 
+This is a beta release. The shared Ploeg interface and Toolbox integration are
+still being refined; updates and fixes will follow.
+
 - Kokoro v1.0: Heart, Michael, Emma, and George. One 328 MB English pack.
 - Supertonic 3: Dutch Female and Dutch Male. One 399 MB Dutch pack.
 - Persistent CPU speech worker, with the next text chunk prepared during playback.
@@ -23,6 +26,26 @@ to turn this summary into a podcast." See [agent and CLI setup](Docs/AgentSpeech
 ## Setup
 
 Requires macOS 13+, Xcode, Python 3.10–3.13, and XcodeGen for the app bundle.
+The shared SwiftUI package must be checked out beside this repository at
+`../PloegKit`. It supplies the Ploeg colors, components and generated app icons.
+
+Use this source layout:
+
+```text
+PloegApps/
+├── PloegKit/      # v0.1.0-beta.1
+└── SoundPloeg/
+```
+
+From the directory containing your SoundPloeg checkout, clone the matching
+PloegKit beta tag before building:
+
+```bash
+git clone --branch v0.1.0-beta.1 https://github.com/teunvanderploeg/PloegKit.git PloegKit
+cd SoundPloeg
+```
+
+Both Swift Package Manager and the Xcode project use this local sibling package.
 
 ```bash
 ./Scripts/bootstrap_tts.sh
@@ -46,6 +69,30 @@ To use another Python or installation location, set `SOUNDPLOEG_PYTHON`,
 `SOUNDPLOEG_SUPPORT_DIR`, and/or `SOUNDPLOEG_MODEL_DIR`. When using a custom model
 root in app settings, pass that same directory as `SOUNDPLOEG_MODEL_DIR` during
 setup. The app runtime location remains the standard Application Support path.
+
+## Interface previews
+
+The native interface follows macOS appearance and the shared Ploeg design.
+These optional preview modes use in-memory settings and example content, skip
+hotkey registration and speech startup, and disable action controls:
+
+```bash
+swift run SoundPloeg --design-preview
+swift run SoundPloeg --design-preview-menu
+```
+
+The first opens Settings with working navigation; the second displays the compact
+menu panel in a window. Neither reads the clipboard or saved reading history.
+
+## Open from PloegToolbox
+
+The app accepts `--show-settings` on a cold launch. A standard macOS reopen event
+also brings Settings forward when SoundPloeg is already running. Both routes,
+the menu panel's Settings button and Command-comma reuse one settings window.
+Opening the app does not read the clipboard or queue speech.
+
+The built bundle advertises `PloegToolboxOpenVersion = 1`. Preview launch flags
+and review-bundle preview metadata keep their isolated behavior on reopen.
 
 ## Verification
 

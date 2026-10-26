@@ -25,10 +25,12 @@
 		837867701340D4DCF3FE449A /* SoundPloegCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A2C670DD9FCB0F186619B43 /* SoundPloegCore.framework */; };
 		86DD109B2C8287F024F00A06 /* UserDefaultsSettingsStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307F8CC92D71BB350CDB6085 /* UserDefaultsSettingsStore.swift */; };
 		883AC9B928FCCAC4BB9D8BB6 /* CompositeTTSService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48CBEA7BE81A62074C37E815 /* CompositeTTSService.swift */; };
+		8E06A1343AF7D1975DE4AE7E /* AppLaunchOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB1637A85D873FC5F16D0170 /* AppLaunchOptions.swift */; };
 		96176288064870E6623FF90F /* SoundPloegInfra.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DB7AD7C8B4A4A3A9081C3C3 /* SoundPloegInfra.framework */; };
 		9F2ED5148CAD00B253E85626 /* ErrorMapperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32155D6261B38AB405BAFC50 /* ErrorMapperTests.swift */; };
 		9F57784298D521DA20E9A4ED /* Runtime in Resources */ = {isa = PBXBuildFile; fileRef = B806455E76513B830019BDD7 /* Runtime */; };
 		9FE7B8A04E88F7FE077DB756 /* HotkeyIngestionCoordinatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6168C499C3B587B50B728B /* HotkeyIngestionCoordinatorTests.swift */; };
+		ABD13EB676B00EF5B4EFABA8 /* DesignPreviewState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78B8510E609A2ACEA41FB7FC /* DesignPreviewState.swift */; };
 		AF3D54C5AC119D30D4722C7D /* MenuBarContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DD371BB448F32198739AABF /* MenuBarContentView.swift */; };
 		B36F374F3DBB14707688562D /* ClipboardTextProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BDBC804D8ED657D40F3629B /* ClipboardTextProcessor.swift */; };
 		BC7B15400CDC2E0C05D156ED /* SoundPloegCore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3A2C670DD9FCB0F186619B43 /* SoundPloegCore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -36,6 +38,8 @@
 		C25832A06AFAD36D4379E3CA /* SpeechQueueCoordinatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC172DB15EBD790EC15B70BD /* SpeechQueueCoordinatorTests.swift */; };
 		C5BF94417EE627635CDC5D4B /* SpeechFeedbackViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDCEE609E109291A151EC298 /* SpeechFeedbackViews.swift */; };
 		C8EA6B8220CBFB513468AE39 /* HotkeyRecorderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C257FF2DF27C7187A7CDCD7 /* HotkeyRecorderView.swift */; };
+		CB60A7CD0762AD06AA7C0635 /* SettingsWindowPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7D6F72B00D2181068524FB3 /* SettingsWindowPresenter.swift */; };
+		CC7480ABAFF57BF7B1383C26 /* PloegKit in Frameworks */ = {isa = PBXBuildFile; productRef = 226A559018A26352E88E3DD2 /* PloegKit */; };
 		CCD5E48DEB9C3A1B713B53AF /* SoundPloegCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A2C670DD9FCB0F186619B43 /* SoundPloegCore.framework */; };
 		D27FA286C860BFBAB1E6AE80 /* SpeechWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA07EB58404BDB761CF7C345 /* SpeechWorker.swift */; };
 		D2B2D652ADA46D62899106E7 /* model_catalog.json in Resources */ = {isa = PBXBuildFile; fileRef = 996C2A981FCDC4D778ADA532 /* model_catalog.json */; };
@@ -139,6 +143,7 @@
 
 /* Begin PBXFileReference section */
 		0F192E59B127105DEC649973 /* SpeechBackendTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechBackendTests.swift; sourceTree = "<group>"; };
+		1541ED136B4557C8E86E4809 /* PloegKit */ = {isa = PBXFileReference; lastKnownFileType = folder; name = PloegKit; path = ../PloegKit; sourceTree = SOURCE_ROOT; };
 		1956381A15FFF2118354EB4F /* HotkeyIngestionCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotkeyIngestionCoordinator.swift; sourceTree = "<group>"; };
 		1B4BCE155F3128DCD6E9491D /* TTSFallbackAndPipelineTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTSFallbackAndPipelineTests.swift; sourceTree = "<group>"; };
 		1DB7AD7C8B4A4A3A9081C3C3 /* SoundPloegInfra.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SoundPloegInfra.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -161,6 +166,7 @@
 		596448A200DABC9393AEE628 /* NSPasteboardClipboardService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSPasteboardClipboardService.swift; sourceTree = "<group>"; };
 		5E14DE247259F261BD86346F /* SpeechQueueCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechQueueCoordinator.swift; sourceTree = "<group>"; };
 		6F117FE2C2D086FC3F36D847 /* Errors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Errors.swift; sourceTree = "<group>"; };
+		78B8510E609A2ACEA41FB7FC /* DesignPreviewState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignPreviewState.swift; sourceTree = "<group>"; };
 		7BDBC804D8ED657D40F3629B /* ClipboardTextProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClipboardTextProcessor.swift; sourceTree = "<group>"; };
 		837D61FAF8E7869BE38A3A60 /* AVAudioPlaybackEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVAudioPlaybackEngine.swift; sourceTree = "<group>"; };
 		996C2A981FCDC4D778ADA532 /* model_catalog.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = model_catalog.json; sourceTree = "<group>"; };
@@ -176,7 +182,9 @@
 		EDCEE609E109291A151EC298 /* SpeechFeedbackViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechFeedbackViews.swift; sourceTree = "<group>"; };
 		F06A384C89B1DFDA25E4C57F /* InMemoryDiagnosticsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InMemoryDiagnosticsService.swift; sourceTree = "<group>"; };
 		F466E4500632C72746E6EFE0 /* SoundPloegIntegrationTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SoundPloegIntegrationTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		F7D6F72B00D2181068524FB3 /* SettingsWindowPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsWindowPresenter.swift; sourceTree = "<group>"; };
 		FAB025350CD2D5949199A0C5 /* VoiceCatalog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceCatalog.swift; sourceTree = "<group>"; };
+		FB1637A85D873FC5F16D0170 /* AppLaunchOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLaunchOptions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -194,6 +202,7 @@
 			files = (
 				3539B54EC3D792DFE76761DA /* SoundPloegCore.framework in Frameworks */,
 				032FD5B67516E328AEEDBE77 /* SoundPloegInfra.framework in Frameworks */,
+				CC7480ABAFF57BF7B1383C26 /* PloegKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -233,9 +242,12 @@
 		134FD79B97F8CD79A353597B /* SoundPloegApp */ = {
 			isa = PBXGroup;
 			children = (
+				FB1637A85D873FC5F16D0170 /* AppLaunchOptions.swift */,
 				56069270A329CBD6B6E12168 /* AppState.swift */,
+				78B8510E609A2ACEA41FB7FC /* DesignPreviewState.swift */,
 				4C257FF2DF27C7187A7CDCD7 /* HotkeyRecorderView.swift */,
 				4DD371BB448F32198739AABF /* MenuBarContentView.swift */,
+				F7D6F72B00D2181068524FB3 /* SettingsWindowPresenter.swift */,
 				BB182EEF6BC714C8650BF140 /* SettingsWindowView.swift */,
 				46894D197F32CB8D621C65F2 /* SoundPloegMenuBarApp.swift */,
 				E1FA74A7AB701B18E463B997 /* SpeechCommands.swift */,
@@ -279,6 +291,7 @@
 			isa = PBXGroup;
 			children = (
 				B806455E76513B830019BDD7 /* Runtime */,
+				D4ABFF0FE42A0E6776D35F8E /* Packages */,
 				9C5FCAAB1EDC1D2A5549D4FA /* Resources */,
 				134FD79B97F8CD79A353597B /* SoundPloegApp */,
 				9C8A3DADC047E73B9964F15C /* SoundPloegCore */,
@@ -332,6 +345,14 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
+		D4ABFF0FE42A0E6776D35F8E /* Packages */ = {
+			isa = PBXGroup;
+			children = (
+				1541ED136B4557C8E86E4809 /* PloegKit */,
+			);
+			name = Packages;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -373,6 +394,7 @@
 			);
 			name = SoundPloegApp;
 			packageProductDependencies = (
+				226A559018A26352E88E3DD2 /* PloegKit */,
 			);
 			productName = SoundPloegApp;
 			productReference = 4DD4A968B0BE2B2BD605B9EA /* SoundPloegApp.app */;
@@ -458,6 +480,9 @@
 			);
 			mainGroup = 892B6CCEB22DFE564304437A;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				A8D858C099E380225D97720D /* XCLocalSwiftPackageReference "../PloegKit" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = A1CAD4F626AB052943739941 /* Products */;
 			projectDirPath = "";
@@ -549,9 +574,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8E06A1343AF7D1975DE4AE7E /* AppLaunchOptions.swift in Sources */,
 				25285543EC6AF505D61DBB9A /* AppState.swift in Sources */,
+				ABD13EB676B00EF5B4EFABA8 /* DesignPreviewState.swift in Sources */,
 				C8EA6B8220CBFB513468AE39 /* HotkeyRecorderView.swift in Sources */,
 				AF3D54C5AC119D30D4722C7D /* MenuBarContentView.swift in Sources */,
+				CB60A7CD0762AD06AA7C0635 /* SettingsWindowPresenter.swift in Sources */,
 				52949DE73A42C2FB99CD8D32 /* SettingsWindowView.swift in Sources */,
 				E49022BEF2D42110B49DBEAC /* SoundPloegMenuBarApp.swift in Sources */,
 				F3965B6C38232F20D613DA2A /* SpeechCommands.swift in Sources */,
@@ -659,6 +687,7 @@
 				CURRENT_PROJECT_VERSION = 2;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = Config/AppInfo.plist;
+				INFOPLIST_KEY_PloegToolboxOpenVersion = 1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -705,6 +734,7 @@
 				CURRENT_PROJECT_VERSION = 2;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = Config/AppInfo.plist;
+				INFOPLIST_KEY_PloegToolboxOpenVersion = 1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -974,6 +1004,20 @@
 			defaultConfigurationName = Debug;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		A8D858C099E380225D97720D /* XCLocalSwiftPackageReference "../PloegKit" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = ../PloegKit;
+		};
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		226A559018A26352E88E3DD2 /* PloegKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = PloegKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 58BE6F4A0265E608B8A6E265 /* Project object */;
 }

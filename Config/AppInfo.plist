@@ -24,6 +24,8 @@
     <string>$(CURRENT_PROJECT_VERSION)</string>
     <key>LSMinimumSystemVersion</key>
     <string>$(MACOSX_DEPLOYMENT_TARGET)</string>
+    <key>PloegToolboxOpenVersion</key>
+    <integer>1</integer>
     <key>LSUIElement</key>
     <true/>
     <key>NSHighResolutionCapable</key>

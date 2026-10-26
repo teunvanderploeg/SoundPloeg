@@ -1,7 +1,10 @@
+import PloegKit
 import SwiftUI
 
+@MainActor
 enum AppBrand {
     static let icon: NSImage = {
+        if let image = PloegAssets.image(for: .sound) { return image }
         #if SWIFT_PACKAGE
         let bundle = Bundle.module
         #else
@@ -16,29 +19,35 @@ enum AppBrand {
 }
 
 @main
+@MainActor
 struct SoundPloegMenuBarApp: App {
-    @StateObject private var appState = AppState()
+    @StateObject private var appState: AppState
+    @NSApplicationDelegateAdaptor(SoundPloegApplicationDelegate.self) private var applicationDelegate
+
+    private static var launchOptions: AppLaunchOptions {
+        AppLaunchOptions(arguments: ProcessInfo.processInfo.arguments, info: Bundle.main.infoDictionary ?? [:])
+    }
 
     init() {
-        NSApplication.shared.setActivationPolicy(.accessory)
+        let options = Self.launchOptions
+        let state = options.isDesignPreview ? DesignPreviewState.make() : AppState()
+        _appState = StateObject(wrappedValue: state)
+        NSApplication.shared.setActivationPolicy(options.isDesignPreview ? .regular : .accessory)
         NSApplication.shared.applicationIconImage = AppBrand.icon
+        SettingsWindowPresenter.shared.configure(appState: state, launchOptions: options)
     }
 
     var body: some Scene {
         MenuBarExtra(
             isPreparingSpeech ? "SoundPloeg: Preparing speech" : "SoundPloeg",
-            systemImage: isPreparingSpeech ? "hourglass" : "waveform"
+            systemImage: isPreparingSpeech ? "hourglass" : "waveform",
+            isInserted: .constant(!Self.launchOptions.isDesignPreview)
         ) {
             MenuBarContentView(appState: appState)
         }
         .menuBarExtraStyle(.window)
 
-        Window("Settings", id: "settings") {
-            SettingsWindowView(appState: appState)
-                .frame(minWidth: 1180, minHeight: 760)
-        }
-        .windowResizability(.contentSize)
-        .commands { SpeechCommands(appState: appState) }
+        .commands { SpeechCommands(appState: appState, isPreview: Self.launchOptions.isDesignPreview) }
     }
 
     private var isPreparingSpeech: Bool {

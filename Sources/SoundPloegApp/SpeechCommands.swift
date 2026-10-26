@@ -8,12 +8,12 @@ enum SpeechAction: String, CaseIterable, Identifiable {
 
     var title: String {
         switch self {
-        case .speak: return "Speak Clipboard"
-        case .playQueue: return "Play Queue"
-        case .pause: return "Pause / Resume"
+        case .speak: return "Read clipboard"
+        case .playQueue: return "Play queue"
+        case .pause: return "Pause / resume"
         case .stop: return "Stop"
         case .skip: return "Skip"
-        case .clear: return "Clear Queue"
+        case .clear: return "Clear queue"
         }
     }
 
@@ -61,21 +61,22 @@ struct SpeechActionButtons: View {
     }
 }
 
+@MainActor
 struct SpeechCommands: Commands {
     @ObservedObject var appState: AppState
-    @Environment(\.openWindow) private var openWindow
+    var isPreview = false
 
     var body: some Commands {
         CommandGroup(replacing: .appSettings) {
             Button("Settings…") {
-                NSApp.setActivationPolicy(.regular)
-                openWindow(id: "settings")
-                NSApp.activate(ignoringOtherApps: true)
+                SettingsWindowPresenter.shared.showSettings()
             }
             .keyboardShortcut(",", modifiers: .command)
+            .disabled(isPreview)
         }
         CommandMenu("Speech") {
             SpeechActionButtons(appState: appState)
+                .disabled(isPreview)
         }
     }
 }

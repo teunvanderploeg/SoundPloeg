@@ -7,7 +7,9 @@ settings:
   base:
     PRODUCT_NAME: SoundPloeg
     SWIFT_VERSION: 5.9
-packages: {}
+packages:
+  PloegKit:
+    path: ../PloegKit
 targets:
   SoundPloegCore:
     type: framework
@@ -29,6 +31,7 @@ targets:
     dependencies:
       - target: SoundPloegCore
       - target: SoundPloegInfra
+      - package: PloegKit
     settings:
       base:
         INFOPLIST_FILE: Config/AppInfo.plist
@@ -38,6 +41,7 @@ targets:
         PRODUCT_BUNDLE_IDENTIFIER: com.soundploeg.app
         PRODUCT_NAME: SoundPloeg
         CODE_SIGN_STYLE: Automatic
+        INFOPLIST_KEY_PloegToolboxOpenVersion: 1
     scheme:
       testTargets:
         - SoundPloegCoreTests
