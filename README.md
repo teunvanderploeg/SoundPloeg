@@ -1,5 +1,11 @@
 # SoundPloeg
 
+[**Download SoundPloeg for Mac**](https://github.com/teunvanderploeg/SoundPloeg/releases/latest/download/SoundPloeg-macOS-Universal.dmg)
+
+Apple silicon and Intel. macOS 13.0 or later.
+Open the disk image and drag SoundPloeg to Applications.
+[ZIP download and checksums](https://github.com/teunvanderploeg/SoundPloeg/releases/latest).
+
 A local macOS menu bar app that reads clipboard text aloud in English and Dutch.
 
 This is a beta release. The shared Ploeg interface and Toolbox integration are
